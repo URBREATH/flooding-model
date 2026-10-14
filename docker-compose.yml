@@ -1,0 +1,30 @@
+# URBREATH Flooding Model -- local deployment (release package, no source code needed).
+# Load the image first:  docker load < urbreath-flooding-model.tar.gz
+# Then:                  docker compose up -d
+services:
+  api:
+    image: urbreath-flooding-model:latest
+    container_name: urbreath-flooding-api
+    command: uvicorn api.app:app --host 0.0.0.0 --port 8000
+    ports:
+      - "8001:8000"  # Prediction API (Swagger UI at /docs)
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health', timeout=5)"]
+      interval: 15s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
+    restart: unless-stopped
+
+  dashboard:
+    image: urbreath-flooding-model:latest
+    container_name: urbreath-flooding-dashboard
+    command: streamlit run ui/app.py --server.address 0.0.0.0 --server.port 8501 --server.headless true
+    ports:
+      - "8501:8501"  # Flood monitoring dashboard
+    environment:
+      - URBREATH_API_URL=http://api:8000
+    depends_on:
+      api:
+        condition: service_healthy
+    restart: unless-stopped
