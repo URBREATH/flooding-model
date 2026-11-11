@@ -7,7 +7,7 @@
 
 services:
   api:
-    image: ghcr.io/exus-ai-labs/urbreath-flooding-model:${URBREATH_VERSION:-1.1.0}
+    image: ghcr.io/urbreath/flooding-model:${URBREATH_VERSION:-v1.1}
     container_name: urbreath-flooding-api
     command: uvicorn api.app:app --host 0.0.0.0 --port 8000
     ports:
@@ -25,7 +25,7 @@ services:
     restart: unless-stopped
 
   dashboard:
-    image: ghcr.io/exus-ai-labs/urbreath-flooding-model:${URBREATH_VERSION:-1.1.0}
+    image: ghcr.io/urbreath/flooding-model:${URBREATH_VERSION:-v1.1}
     container_name: urbreath-flooding-dashboard
     command: streamlit run ui/app.py --server.address 0.0.0.0 --server.port 8501 --server.headless true --browser.gatherUsageStats false --client.toolbarMode viewer
     ports:

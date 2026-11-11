@@ -32,7 +32,7 @@ Official alert thresholds used (metres above each gauge's own datum, source Arpa
 
 - Docker and Docker Compose installed and running (Docker Desktop on Windows/macOS). Check with `docker compose version`.
 - An x86-64 (amd64) machine with about 3 GB of free disk space and 2 GB of RAM.
-- **Access to the image.** The image is hosted privately on GitHub Container Registry. Ask EXUS (see Contact) to grant your GitHub account read access to the `urbreath-flooding-model` package.
+- **Access to the image.** The image is hosted privately on GitHub Container Registry. Ask EXUS (see Contact) to grant your GitHub account read access to the `flooding-model` package of the URBREATH organization.
 - Internet access to:
   - `ghcr.io`, to download the image;
   - `allertameteo.regione.emilia-romagna.it`, so the dashboard can show live sensor readings. If it can't reach the portal, it falls back to the bundled historical data.
@@ -70,7 +70,7 @@ and paste it after `URBREATH_PIPELINE_API_KEY=`. The tool will not start while i
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `URBREATH_VERSION` | `1.1.0` | Image version to run. |
+| `URBREATH_VERSION` | `v1.1` | Image version to run. |
 | `URBREATH_BIND_ADDRESS` | `0.0.0.0` | Host interface for the published ports. Use `127.0.0.1` when a reverse proxy on the same host fronts the tool. |
 | `URBREATH_API_PORT` | `8001` | Host port for the API. |
 | `URBREATH_UI_PORT` | `8501` | Host port for the dashboard. |
@@ -132,8 +132,8 @@ docker compose up -d
 ## Built Image
 
 - Distribution: GitHub Container Registry (private, access on request)
-- Image Name: `ghcr.io/exus-ai-labs/urbreath-flooding-model`
-- Version: `1.1.0`
+- Image Name: `ghcr.io/urbreath/flooding-model`
+- Version: `v1.1`
 
 ## License
 This tool is licensed under Proprietary Software Licence - End-User License Agreement (EULA).
